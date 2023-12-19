@@ -1,7 +1,7 @@
 import asyncio
 from logging.config import fileConfig
 
-from sqlalchemy import pool
+from sqlalchemy import pool, URL
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
@@ -20,12 +20,32 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+import infrastructure.database.models as models
+
+target_metadata = models.Base.metadata
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+from environs import Env
+
+env = Env()
+env.read_env('.env')
+
+url = URL.create(
+    drivername=f"postgresql+asyncpg",
+    username=env.str("POSTGRES_USER"),
+    password=env.str("POSTGRES_PASSWORD"),
+    host=env.str("DB_HOST"),
+    port=env.int("DB_PORT", 5432),
+    database=env.str("POSTGRES_DB"),
+).render_as_string(hide_password=False)
+
+config.set_main_option("sqlalchemy.url",
+                       url)
 
 
 def run_migrations_offline() -> None:
