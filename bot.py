@@ -1,19 +1,18 @@
 import asyncio
 import logging
 
-import betterlogging as bl
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.fsm.storage.redis import RedisStorage, DefaultKeyBuilder
 
 from tgbot.config import load_config, Config
 from tgbot.handlers import routers_list
 from tgbot.middlewares.config import ConfigMiddleware
+from tgbot.middlewares.database import DatabaseMiddleware
 from tgbot.services import broadcaster
 
 
 async def on_startup(bot: Bot, admin_ids: list[int]):
-    await broadcaster.broadcast(bot, admin_ids, "Бот був запущений")
+    await broadcaster.broadcast(bot, admin_ids, "Бот был запущен!")
 
 
 def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=None):
@@ -29,7 +28,7 @@ def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=Non
     """
     middleware_types = [
         ConfigMiddleware(config),
-        # DatabaseMiddleware(session_pool),
+        DatabaseMiddleware(session_pool),
     ]
 
     for middleware_type in middleware_types:
@@ -74,13 +73,7 @@ def get_storage(config):
         Storage: The storage object based on the configuration.
 
     """
-    if config.tg_bot.use_redis:
-        return RedisStorage.from_url(
-            config.redis.dsn(),
-            key_builder=DefaultKeyBuilder(with_bot_id=True, with_destiny=True),
-        )
-    else:
-        return MemoryStorage()
+    return MemoryStorage()
 
 
 async def main():
@@ -104,4 +97,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
-        logging.error("Бот був вимкнений!")
+        logging.error("Бот был выключен!")

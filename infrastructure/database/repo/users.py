@@ -11,16 +11,14 @@ class UserRepo(BaseRepo):
     async def get_or_create_user(
         self,
         user_id: int,
-        full_name: str,
-        language: str,
-        username: Optional[str] = None,
+        username: str,
+        is_admin: Optional[bool] = False,
     ):
         """
         Creates or updates a new user in the database and returns the user object.
         :param user_id: The user's ID.
-        :param full_name: The user's full name.
-        :param language: The user's language.
-        :param username: The user's username. It's an optional parameter.
+        :param username: The user's username.
+        :param is_admin: Whether the user is an admin or not.
         :return: User object, None if there was an error while making a transaction.
         """
 
@@ -29,14 +27,13 @@ class UserRepo(BaseRepo):
             .values(
                 user_id=user_id,
                 username=username,
-                full_name=full_name,
-                language=language,
+                isAdmin=is_admin,
             )
             .on_conflict_do_update(
                 index_elements=[User.user_id],
                 set_=dict(
                     username=username,
-                    full_name=full_name,
+                    isAdmin=is_admin,
                 ),
             )
             .returning(User)
