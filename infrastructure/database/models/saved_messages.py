@@ -37,8 +37,8 @@ class SavedMessage(Base, TimestampMixin, TableNameMixin):
     user_id: Mapped[int] = mapped_column(ForeignKey('users.user_id'))
     message_text: Mapped[str] = mapped_column(String(4096))
 
-    chat = relationship("Chat", back_populates="saved_messages")
-    user = relationship("User", back_populates="saved_messages")
+    chat = relationship("Chat", back_populates="saved_messages", lazy='selectin')
+    user = relationship("User", back_populates="saved_messages", lazy='selectin')
 
     def __repr__(self):
         return f"<SavedMessage {self.saved_message_id} {self.chat_id} {self.message_text}>"

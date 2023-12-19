@@ -12,13 +12,13 @@ class UserRepo(BaseRepo):
         self,
         user_id: int,
         username: str,
-        is_admin: Optional[bool] = False,
+        full_name: str,
     ):
         """
         Creates or updates a new user in the database and returns the user object.
         :param user_id: The user's ID.
         :param username: The user's username.
-        :param is_admin: Whether the user is an admin or not.
+        :param full_name: The user's full name.
         :return: User object, None if there was an error while making a transaction.
         """
 
@@ -27,13 +27,13 @@ class UserRepo(BaseRepo):
             .values(
                 user_id=user_id,
                 username=username,
-                isAdmin=is_admin,
+                full_name=full_name,
             )
             .on_conflict_do_update(
                 index_elements=[User.user_id],
                 set_=dict(
                     username=username,
-                    isAdmin=is_admin,
+                    full_name=full_name,
                 ),
             )
             .returning(User)

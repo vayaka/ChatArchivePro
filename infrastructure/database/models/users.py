@@ -17,6 +17,7 @@ class User(Base, TimestampMixin, TableNameMixin):
     Attributes:
         user_id (Mapped[int]): The unique identifier of the user.
         username (Mapped[Optional[str]]): The username of the user.
+        full_name (Mapped[str]): The full name of the user.
         isAdmin (Mapped[bool]): Whether the user is an admin or not.
 
     Methods:
@@ -31,9 +32,9 @@ class User(Base, TimestampMixin, TableNameMixin):
     """
     user_id: Mapped[int] = mapped_column(BIGINT, primary_key=True, autoincrement=False)
     username: Mapped[Optional[str]] = mapped_column(String(128))
-    isAdmin: Mapped[bool] = mapped_column(Boolean, server_default=text('false'))
+    full_name: Mapped[str] = mapped_column(String(256))
 
-    saved_messages = relationship("SavedMessage", back_populates="user")
+    saved_messages = relationship("SavedMessage", back_populates="user", lazy='selectin')
 
     def __repr__(self):
-        return f"<User {self.user_id} {self.username} {self.username}>"
+        return f"<User {self.user_id} {self.username} {self.full_name}>"

@@ -31,7 +31,7 @@ class Chat(Base, TimestampMixin, TableNameMixin):
     chat_id: Mapped[int] = mapped_column(BIGINT, primary_key=True, autoincrement=False)
     chat_name: Mapped[Optional[str]] = mapped_column(String(128))
 
-    saved_messages = relationship("SavedMessage", back_populates="chat")
+    saved_messages = relationship("SavedMessage", back_populates="chat", lazy='selectin')
 
     def __repr__(self):
         return f"<Chat {self.chat_id} {self.chat_name}>"

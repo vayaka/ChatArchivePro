@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from infrastructure.database.repo.chats import ChatRepo
+from infrastructure.database.repo.saved_messages import SavedMessageRepo
 from infrastructure.database.repo.users import UserRepo
 from infrastructure.database.setup import create_engine
 
@@ -23,10 +25,25 @@ class RequestsRepo:
         """
         return UserRepo(self.session)
 
+    @property
+    def saved_message(self) -> SavedMessageRepo:
+        """
+        The User repository sessions are required to manage user operations.
+        """
+        return SavedMessageRepo(self.session)
+
+    @property
+    def chats(self) -> ChatRepo:
+        """
+        The User repository sessions are required to manage user operations.
+        """
+        return ChatRepo(self.session)
+
 
 if __name__ == "__main__":
     from infrastructure.database.setup import create_session_pool
     from tgbot.config import Config
+
 
     async def example_usage(config: Config):
         """
