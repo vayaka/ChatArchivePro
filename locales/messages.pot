@@ -1,0 +1,53 @@
+# Translations template for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-12-20 17:03+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: tgbot/handlers/groups.py:18 tgbot/handlers/user.py:14
+msgid "Старт"
+msgstr ""
+
+#: tgbot/handlers/groups.py:25
+msgid "Нет сообщения для сохранения"
+msgstr ""
+
+#: tgbot/handlers/groups.py:31
+msgid ""
+"Сообщение:\n"
+"{text}\n"
+"От @{username}\n"
+"Сохранено!"
+msgstr ""
+
+#: tgbot/handlers/groups.py:40
+msgid "Сохраненные сообщения"
+msgstr ""
+
+#: tgbot/handlers/groups.py:42
+msgid ""
+"{index}. {saved_message[0].message_text}\n"
+"Сохранено @{saved_message[0].user.username}\n"
+msgstr ""
+
+#: tgbot/handlers/groups.py:50 tgbot/handlers/user.py:24
+msgid "Помощь"
+msgstr ""
+
+#: tgbot/handlers/user.py:19
+msgid "Фидбек"
+msgstr ""
+

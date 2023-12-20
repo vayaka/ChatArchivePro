@@ -1,0 +1,86 @@
+# English translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-12-20 17:03+0300\n"
+"PO-Revision-Date: 2023-12-20 17:42+0300\n"
+"Last-Translator: \n"
+"Language-Team: en <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.14.0\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#: tgbot/handlers/groups.py:18 tgbot/handlers/user.py:14
+msgid "Старт"
+msgstr ""
+"<b>Welcome! 👋</b>\n"
+"I am <i>ChatArchive Pro</i>, your assistant for managing information in this chat. \n"
+"I can <u>save important messages</u> and help you find them quickly.\n"
+"\n"
+"To start, send me a command or choose an action from the menu below. \n"
+"If you need help, type <code>/help</code>"
+
+#: tgbot/handlers/groups.py:25
+msgid "Нет сообщения для сохранения"
+msgstr "Please, write a message after the command or reply to the message you want to remember)"
+
+#: tgbot/handlers/groups.py:31
+msgid ""
+"Сообщение:\n"
+"{text}\n"
+"От @{username}\n"
+"Сохранено!"
+msgstr ""
+"Message:\n"
+"{text}\n"
+"From @{username}\n"
+"Saved!"
+
+#: tgbot/handlers/groups.py:40
+msgid "Сохраненные сообщения"
+msgstr ""
+"Saved messages:\n"
+"They're in the database - {count}"
+
+#: tgbot/handlers/groups.py:42
+msgid ""
+"{index}. {saved_message[0].message_text}\n"
+"Сохранено @{saved_message[0].user.username}\n"
+msgstr ""
+"{index}. {saved_message[0].message_text}\n"
+"Saved @{saved_message[0].user.username}\n"
+
+#: tgbot/handlers/groups.py:50 tgbot/handlers/user.py:24
+msgid "Помощь"
+msgstr ""
+"<b>Here's what I can do:</b>\n"
+"<ul>\n"
+"  <li><b>Save Messages:</b> use the <code>/save</code> command or reply to a message you want to save and add the <code>/save</code> command.</li>\n"
+"  <li><b>Show Saved Messages:</b> type <code>/get</code> to see everything you've saved.</li>\n"
+"  <li><b>Manage Settings:</b> use <code>/settings</code> to customize my behavior.</li>\n"
+"  <li><b>Feedback:</b> if you have suggestions or comments, use <code>/feedback</code> to send feedback. We value your opinion!</li>\n"
+"</ul>\n"
+"\n"
+"If you have any questions or need additional help, type <code>/help</code>"
+
+#: tgbot/handlers/user.py:19
+msgid "Фидбек"
+msgstr ""
+"<b>Your Feedback Matters!</b>\n"
+"Once you initiate the <code>/feedback</code> command and receive a prompt from me, please share your thoughts. Whether it's a suggestion, idea, or comment, your feedback is invaluable for our improvements.\n"
+"\n"
+"Just type in your feedback following my prompt. Your insights are key to enhancing our bot's functionality and user experience!\n"
+"\n"
+"<i>Here's how it works:</i>\n"
+"You send: <code>/feedback</code>\n"
+"Bot responds: <i>Thank you! Now, please type your feedback.</i>\n"
+"You reply: <i>Adding a feature to tag saved messages would be great!</i>"

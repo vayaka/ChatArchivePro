@@ -37,7 +37,7 @@ class SavedMessageRepo(BaseRepo):
             user_id: int = None,
             original_message_id: int = None,
             message_text: str = "",
-    ):
+    ) -> Optional[SavedMessage]:
         """
         Creates a saved message in the database.
         :param chat_id: The chat's ID.
@@ -52,7 +52,7 @@ class SavedMessageRepo(BaseRepo):
             user_id=user_id,
             original_message_id=original_message_id,
             message_text=message_text,
-        ).returning(SavedMessage.saved_message_id)
+        ).returning(SavedMessage)
         result = await self.session.execute(insert_stmt)
 
         await self.session.commit()

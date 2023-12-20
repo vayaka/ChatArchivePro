@@ -4,12 +4,14 @@ import betterlogging as bl
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.utils.i18n import I18n
 
 from infrastructure.database.setup import create_engine, create_session_pool
 from tgbot.config import load_config, Config
 from tgbot.handlers import routers_list
 from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.middlewares.database import DatabaseMiddleware
+from tgbot.middlewares.i18n import CustomI18nMiddleware
 from tgbot.services import broadcaster
 
 
@@ -17,7 +19,7 @@ async def on_startup(bot: Bot, admin_ids: list[int]):
     await broadcaster.broadcast(bot, admin_ids, "Бот был запущен!")
 
 
-def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=None):
+def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=None, i18n=None):
     """
     Register global middlewares for the given dispatcher.
     Global middlewares here are the ones that are applied to all the handlers (you specify the type of update)
@@ -31,6 +33,7 @@ def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=Non
     middleware_types = [
         ConfigMiddleware(config),
         DatabaseMiddleware(session_pool),
+        CustomI18nMiddleware(i18n=i18n),
     ]
 
     for middleware_type in middleware_types:
@@ -83,15 +86,19 @@ async def main():
 
     config = load_config(".env")
     storage = get_storage(config)
+
     async_engine = create_engine(config.db, echo=False)
     session_pool = create_session_pool(async_engine)
 
+    i18n = I18n(path="locales", default_locale='ru', domain='messages')
+
     bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
+    await bot.delete_webhook(drop_pending_updates=True)
     dp = Dispatcher(storage=storage)
 
     dp.include_routers(*routers_list)
 
-    register_global_middlewares(dp, config, session_pool=session_pool)
+    register_global_middlewares(dp, config, session_pool=session_pool, i18n=i18n)
 
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)

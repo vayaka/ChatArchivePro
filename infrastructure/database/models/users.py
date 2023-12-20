@@ -18,7 +18,7 @@ class User(Base, TimestampMixin, TableNameMixin):
         user_id (Mapped[int]): The unique identifier of the user.
         username (Mapped[Optional[str]]): The username of the user.
         full_name (Mapped[str]): The full name of the user.
-        isAdmin (Mapped[bool]): Whether the user is an admin or not.
+        language (Mapped[str]): The language of the user.
 
     Methods:
         __repr__(): Returns a string representation of the User object.
@@ -33,6 +33,7 @@ class User(Base, TimestampMixin, TableNameMixin):
     user_id: Mapped[int] = mapped_column(BIGINT, primary_key=True, autoincrement=False)
     username: Mapped[Optional[str]] = mapped_column(String(128))
     full_name: Mapped[str] = mapped_column(String(256))
+    language: Mapped[str] = mapped_column(String(10), server_default=text("'en'"))
 
     saved_messages = relationship("SavedMessage", back_populates="user", lazy='selectin')
 
